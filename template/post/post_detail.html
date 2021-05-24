@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container my-4">
+    <div class="row">
+        <div class="col-12 col-sm-6 offset-3">
+            <div class="card">
+                <div class="card-body">
+                    <h1 id="titulo">{{object.titulo}}</h1>
+                    <p id="contenido">{{object.contenido}} </p>
+                    <p id="estado">
+                        {%if object.estado == 'A'%}
+                            <span>Abierto</span>
+                        {%elif object.estado == 'C'%}
+                            <span>Cerrado</span>
+                        {%endif%}
+                    </p>
+                    {% if object.estado == 'A' %}
+                        <form action="{% url 'post_list'%}" method="POST">{% csrf_token %}
+                            <input type="hidden" name="id" id="" value="{{object.id}}">
+                            <input type="submit" class="btn-success btn" value="Cerrar">&nbsp;<a href="{% url 'post_list'%} "class="btn btn-primary">Volver</a> 
+                        </form>
+                    {%elif object.estado == 'C'%}
+                    <a href="{% url 'post_list'%} "class="btn btn-primary">Volver</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+{% endblock content %}
